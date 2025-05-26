@@ -1,0 +1,10 @@
+12,Dalto,9
+4,Wisin ,7
+87,Justin,6.54
+3,minerva,4.56
+2,pedro,4
+6,samuel,4
+88,Juanito,3.4
+20,Juan Pablo,3
+1,fredi,2
+14,Juana,1
