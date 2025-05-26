@@ -14,7 +14,7 @@ using namespace std;
 
 //Funcion para verificar si un ID ya existe en el archivo
 bool idExiste(int idBuscado) {
-    ifstream archivo("personas.txt");
+    ifstream archivo("personas.txt"); // Abrir el archivo en modo lectura
     string linea;
     while (getline(archivo, linea)) {
         stringstream ss(linea);
@@ -47,13 +47,16 @@ void ordenarPersonasPorPromedio(Persona personas[], int total) {
     }
 }
 
+// Funcion para sobrescribir el archivo con los datos ordenados
 void sobrescribirArchivo(Persona personas[], int total) {
     ofstream archivo("personas.txt", ios::trunc);
-    for (int i = 0; i < total; i++) {
+    for (int i = 0; i < total; i++) { // Iterar sobre el array de personas
         archivo << personas[i].id << "," << personas[i].nombre << "," << personas[i].promedio << "\n"; // Guardar datos en el archivo
     }
-    archivo.close();
+    archivo.close(); // Cerrar el archivo después de escribir
 }
+
+// Función para guardar una persona en el archivo
 
 void guardarEnArchivo(const Persona& persona) {
     ifstream archivoLectura("personas.txt");// Abrir el archivo en modo lectura
@@ -61,7 +64,7 @@ void guardarEnArchivo(const Persona& persona) {
     int total = 0;
     string linea;// Variable para almacenar cada línea leída
     // Leer el archivo línea por línea
-    while (getline(archivoLectura, linea)) {
+    while (getline(archivoLectura, linea)) { // Leer cada línea del archivo
         stringstream ss(linea);
         string idStr, nombre, promedioStr;
         getline(ss, idStr, ',');
@@ -71,20 +74,20 @@ void guardarEnArchivo(const Persona& persona) {
         p.id = stoi(idStr); // Convertir el ID de string a entero
         p.nombre = nombre;
         p.promedio = stof(promedioStr);
-        personas[total++] = p;
+        personas[total++] = p; // Agregar la persona al array
     }
 
     personas[total++] = persona;// Agregar la nueva persona al array
     archivoLectura.close();
 
     ordenarPersonasPorPromedio(personas, total);// Ordenar las personas por promedio
-    sobrescribirArchivo(personas, total);
+    sobrescribirArchivo(personas, total); // Sobrescribir el archivo con los datos ordenados
 }
 
 // Función para consultar una persona por ID
 void consultarPersona(int idBuscado) {
-    ifstream archivo("personas.txt");
-    string linea;
+    ifstream archivo("personas.txt"); // Abrir el archivo en modo lectura
+    string linea; // Variable para almacenar cada línea leída
     while (getline(archivo, linea)) {
         stringstream ss(linea);
         string campo;
@@ -118,8 +121,8 @@ void modificarPersona(int idBuscado) {
     if (opcionMod == 1) modificarNombre = true;
     else if (opcionMod == 2) modificarPromedio = true; // Indica si se modificará el promedio
     else if (opcionMod == 3) {
-        modificarNombre = true;
-        modificarPromedio = true;
+        modificarNombre = true; // Indica que se modificará el nombre
+        modificarPromedio = true; // Indica que se modificarán ambos campos
     } else {
         cout << "Opción inválida. No se harán cambios.\n";
         archivo.close(); // Cerrar el archivo antes de salir
@@ -159,11 +162,11 @@ void modificarPersona(int idBuscado) {
     while (getline(archivo, linea)) {
         stringstream ss(linea);
         string idStr, nombreActual, promedioStr;
-        getline(ss, idStr, ',');
+        getline(ss, idStr, ','); // Obtener el ID
         getline(ss, nombreActual, ',');
         getline(ss, promedioStr, ',');
-        int idArchivo = stoi(idStr);
-        float promedioActual = stof(promedioStr);
+        int idArchivo = stoi(idStr); // Convertir el ID de string a entero
+        float promedioActual = stof(promedioStr); // Convertir el promedio de string a float
 
         Persona p; // Crear una nueva persona
         p.id = idArchivo; // Asignar el ID de la persona leída
@@ -182,8 +185,8 @@ void modificarPersona(int idBuscado) {
 
     archivo.close();
 
-    ordenarPersonasPorPromedio(personas, total);
-    sobrescribirArchivo(personas, total);
+    ordenarPersonasPorPromedio(personas, total); // Ordenar las personas por promedio
+    sobrescribirArchivo(personas, total); // Sobrescribir el archivo con los datos actualizados
 
     cout << "Persona modificada correctamente y archivo reordenado por promedio.\n";
 }
@@ -215,8 +218,8 @@ void eliminarPersona(int idBuscado) {
 
     archivo.close(); // Cerrar el archivo después de leer
 
-    ordenarPersonasPorPromedio(personas, total);
-    sobrescribirArchivo(personas, total);
+    ordenarPersonasPorPromedio(personas, total); // Ordenar las personas por promedio
+    sobrescribirArchivo(personas, total); // Sobrescribir el archivo con los datos actualizados
 
     cout << "Persona eliminada correctamente y archivo reordenado por promedio.\n";
 }
@@ -231,14 +234,14 @@ int main() {
     // Bucle para ingresar personas
     while (true) {
         cout << "\n¿Deseas ingresar una persona? (si/no): ";
-        string continuar;
+        string continuar; // Variable para continuar o no
         cin >> continuar;
         if (continuar == "si") { // Pregunta para continuar
             while (true) { // Validar entrada del ID
                 cout << "Ingresa el ID (entero): ";
                 cin >> persona.id;
                 if (cin.fail()) { // Validar que la entrada sea un número entero
-                    cin.clear();
+                    cin.clear();// Limpiar el estado de cin
                     cin.ignore(1000, '\n');
                     cout << "Entrada inválida. El ID debe ser un número entero.\n";
                     continue;
@@ -252,8 +255,8 @@ int main() {
             }
 
             cout << "Ingresa el nombre: ";
-            cin.ignore();
-            getline(cin, persona.nombre);
+            cin.ignore(); // Limpiar el buffer de entrada
+            getline(cin, persona.nombre); // Leer el nombre completo
 
             cout << "Ingresa el promedio: ";
             while (true) {
@@ -288,7 +291,7 @@ int main() {
         }
     }
 
-    int opcion, idConsulta;
+    int opcion, idConsulta;// Variable para almacenar la opción del menú y el ID a consultar
 
     cout << "Ahora puedes consultar, modificar o eliminar personas.\n";
     do {
@@ -323,9 +326,9 @@ int main() {
                     continue;
                 }
 
-                if (idExiste(idConsulta)) {
+                if (idExiste(idConsulta)) { // Verificar si el ID existe
                     break;
-                } else {
+                } else { // Si el ID no existe, solicitar uno nuevo
                     cout << "Ingrese uno que ya existe.\n";
                 }
             }
@@ -333,18 +336,18 @@ int main() {
         // Validar que la opción sea válida 
 
         if (opcion == 1) {
-            consultarPersona(idConsulta);
+            consultarPersona(idConsulta); // Consultar persona por ID
         } else if (opcion == 2) {
-            modificarPersona(idConsulta);
+            modificarPersona(idConsulta); // Modificar persona por ID
         } else if (opcion == 3) {
-            eliminarPersona(idConsulta);
+            eliminarPersona(idConsulta); // Eliminar persona por ID
         } else if (opcion == 4) {
             cout << "Saliendo...\n";
         } else {
             cout << "Opción inválida. Por favor, intente de nuevo.\n";
         }
 
-    } while (opcion != 4);
+    } while (opcion != 4); // Salir del bucle si la opción es 4
 
     return 0;
 }
