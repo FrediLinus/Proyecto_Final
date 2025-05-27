@@ -1,10 +1,5 @@
-12,Dalto,9
-4,Wisin ,7
-87,Justin,6.54
-3,minerva,4.56
-2,pedro,4
-6,samuel,4
-88,Juanito,3.4
-20,Juan Pablo,3
-1,fredi,2
-14,Juana,1
+12,Dalto Juan Perez Navarro,9
+4,Wisin Yandel Perez Orozco ,7
+87,Justin Bieber Joc Perez,6.54
+3,Luisa Ana Minerva Perez,4.56
+2,Pedro Alvarado Diaz ,4
